@@ -248,7 +248,7 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     public_suffix (2.0.4)
-    pubsubhubbub-rails (0.3.1)
+    pubsubhubbub-rails (0.3.2)
       addressable (~> 2.4)
       http (~> 2.0)
       link_header (~> 0.0)

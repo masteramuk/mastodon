@@ -41,6 +41,8 @@ class ProcessInteractionService < BaseService
         add_post!(body, account) unless status(xml).nil?
       when :delete
         delete_post!(xml, account)
+      when :'update-profile'
+        refetch_profile!(account)
       end
     end
   rescue Goldfinger::Error, HTTP::Error, OStatus2::BadSalmonError
@@ -89,6 +91,12 @@ class ProcessInteractionService < BaseService
 
   def add_post!(body, account)
     process_feed_service.call(body, account)
+  end
+
+  def refetch_profile!(account)
+    response = HTTP.timeout(:per_operation, write: 20, connect: 20, read: 50).get(account.remote_url)
+    xml      = Nokogiri::XML(response)
+    update_remote_profile_service.call(xml.at_xpath('/xmlns:feed'), account)
   end
 
   def status(xml)
