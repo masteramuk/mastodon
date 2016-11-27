@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: a772518d047b230642d011a71459dc2b67869dbb
+  revision: f46feba2221b99f1f36f75d18aa6b0bfde5b4692
   branch: 5-0-stable
   specs:
     actioncable (5.0.0.1)
@@ -248,7 +248,7 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     public_suffix (2.0.4)
-    pubsubhubbub-rails (0.3.0)
+    pubsubhubbub-rails (0.3.1)
       addressable (~> 2.4)
       http (~> 2.0)
       link_header (~> 0.0)
