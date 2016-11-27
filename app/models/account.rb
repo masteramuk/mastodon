@@ -111,7 +111,7 @@ class Account < ApplicationRecord
   end
 
   def ping!(atom_url, hubs)
-    return unless local? && !Rails.env.development?
+    return unless local?
     OStatus2::Publication.new(atom_url, hubs).publish
   end
 

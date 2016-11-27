@@ -7,7 +7,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
   let(:token) { double acceptable?: true, resource_owner_id: user.id }
 
   before do
-    stub_request(:post, "https://pubsubhubbub.superfeedr.com/").to_return(:status => 200, :body => "", :headers => {})
+    stub_request(:post, "https://cb6e6126.ngrok.io/pubsubhubbub").to_return(:status => 200, :body => "", :headers => {})
     allow(controller).to receive(:doorkeeper_token) { token }
   end
 

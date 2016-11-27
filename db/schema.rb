@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123093447) do
+ActiveRecord::Schema.define(version: 20161127114709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,19 @@ ActiveRecord::Schema.define(version: 20161123093447) do
     t.datetime "updated_at"
     t.boolean  "superapp",     default: false, null: false
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+  end
+
+  create_table "pubsubhubbub_subscriptions", force: :cascade do |t|
+    t.string   "topic",      default: "",    null: false
+    t.string   "callback",   default: "",    null: false
+    t.string   "mode",       default: "",    null: false
+    t.string   "challenge",  default: "",    null: false
+    t.string   "secret"
+    t.boolean  "confirmed",  default: false, null: false
+    t.datetime "expires_at",                 null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["topic", "callback"], name: "index_pubsubhubbub_subscriptions_on_topic_and_callback", unique: true, using: :btree
   end
 
   create_table "settings", force: :cascade do |t|

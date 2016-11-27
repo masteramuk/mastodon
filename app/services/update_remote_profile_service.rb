@@ -14,10 +14,11 @@ class UpdateRemoteProfileService < BaseService
       account.avatar_remote_url = author_xml.at_xpath('./xmlns:link[@rel="avatar"]')['href'] unless author_xml.at_xpath('./xmlns:link[@rel="avatar"]').nil? || author_xml.at_xpath('./xmlns:link[@rel="avatar"]')['href'].blank?
     end
 
-    old_hub_url     = account.hub_url
-    account.hub_url = hub_link['href'] if !hub_link.nil? && !hub_link['href'].blank? && (hub_link['href'] != old_hub_url)
-    account.save!
+    if !hub_link.nil? && !hub_link['href'].blank? && (hub_link['href'] != account.hub_url) && resubscribe
+      account.hub_url = hub_link['href']
+      SubscribeService.new.call(account)
+    end
 
-    SubscribeService.new.call(account) if resubscribe && (account.hub_url != old_hub_url)
+    account.save!
   end
 end

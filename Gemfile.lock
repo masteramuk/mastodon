@@ -246,6 +246,12 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    pubsubhubbub-rails (0.2.0)
+      addressable (~> 2.4)
+      http (~> 2.0)
+      link_header (~> 0.0)
+      nokogiri (~> 1.4)
+      rails (~> 5.0.0, >= 5.0.0.1)
     puma (3.6.0)
     rabl (0.13.1)
       activesupport (>= 2.3.14)
@@ -434,6 +440,7 @@ DEPENDENCIES
   pg_search
   pghero
   pry-rails
+  pubsubhubbub-rails
   puma
   rabl
   rack-attack
