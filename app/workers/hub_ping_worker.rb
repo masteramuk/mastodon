@@ -6,6 +6,6 @@ class HubPingWorker
 
   def perform(account_id)
     account = Account.find(account_id)
-    account.ping!(account_url(account, format: 'atom'), [pubsubhubbub_url])
+    Pubsubhubbub.publish(pubsubhubbub_url, account_url(account, format: 'atom'))
   end
 end
