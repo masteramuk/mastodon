@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe FanOutOnWriteService do
   let(:author)   { Fabricate(:account, username: 'tom') }
   let(:status)   { Fabricate(:status, text: 'Hello @alice #test', account: author) }
-  let(:alice)    { Fabricate(:user, account: Fabricate(:account, username: 'alice')).account }
-  let(:follower) { Fabricate(:account, username: 'bob') }
+  let(:alice)    { Fabricate(:user, email: 'alice@example.com', account: Fabricate(:account, username: 'alice')).account }
+  let(:follower) { Fabricate(:user, email: 'bob@example.com', current_sign_in_at: Time.now.utc, account: Fabricate(:account, username: 'bob')).account }
 
   subject { FanOutOnWriteService.new }
 

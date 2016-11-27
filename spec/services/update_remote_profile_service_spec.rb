@@ -56,4 +56,21 @@ RSpec.describe UpdateRemoteProfileService do
       expect(remote_account.reload.note).to eq 'Software engineer, free time musician and ＤＩＧＩＴＡＬ ＳＰＯＲＴＳ enthusiast. Likes cats. Warning: May contain memes'
     end
   end
+
+  context 'with update hub URL' do
+    let(:remote_account) { Fabricate(:account, hub_url: 'http://oldhub.com', username: 'bob', domain: 'example.com', display_name: 'ＤＩＧＩＴＡＬ ＣＡＴ', note: 'Software engineer, free time musician and ＤＩＧＩＴＡＬ ＳＰＯＲＴＳ enthusiast. Likes cats. Warning: May contain memes', avatar_remote_url: 'https://quitter.no/avatar/7477-300-20160211190340.png') }
+
+    before do
+      stub_request(:post, "https://quitter.no/main/push/hub").to_return(:status => 200, :body => "", :headers => {})
+      subject.call(xml, remote_account, true)
+    end
+
+    it 'sets new hub url' do
+      expect(remote_account.reload.hub_url).to eq 'https://quitter.no/main/push/hub'
+    end
+
+    it 're-subscribes to the new hub' do
+      expect(stub_request(:post, "https://quitter.no/main/push/hub")).to have_been_made.once
+    end
+  end
 end
